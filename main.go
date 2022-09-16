@@ -3,7 +3,8 @@ package main
 
 import (
 	"flag"
-	"fmt"
+
+	hbery_aoc2015 "github.com/hbery/aoc-2015-go/src"
 )
 
 type Args struct {
@@ -19,7 +20,9 @@ func parseArgs() {
 }
 
 func main() {
-	fmt.Println("========== Advent of Code 2015 ==========")
+	// Parse arguments first
 	parseArgs()
-	fmt.Printf("Day: %d\n", arguments.day)
+
+	// Run Solution for certain day
+	hbery_aoc2015.Solution(arguments.day)
 }
