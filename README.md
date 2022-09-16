@@ -5,5 +5,5 @@
 ## Running tasks
 
 ```bash
-go run ./src/main.go
+go run ./main.go -day DAY_NO
 ```

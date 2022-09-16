@@ -14,7 +14,7 @@ type Args struct {
 var arguments Args
 
 func parseArgs() {
-	flag.IntVar(&arguments.day, "day", 1, "Choose the day to execute.")
+	flag.IntVar(&arguments.day, "day", 1, "Choose the day to execute the solution for.")
 
 	flag.Parse()
 }
