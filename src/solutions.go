@@ -23,6 +23,6 @@ func Solution(day, part int, input string) error {
 	}
 
 	// Print Score and return
-	hbery_aoc2015.PrintlnCenter(fmt.Sprintf("Score: %d", score), 80, "")
+	hbery_aoc2015.PrintlnCenter(fmt.Sprintf("Result: %d", score), 80, "")
 	return nil
 }

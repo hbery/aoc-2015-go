@@ -25,8 +25,8 @@ func day01_p1(input string) (int64, error) {
 }
 
 func day01_p2(input string) (int64, error) {
-	return 0, nil
 	var score int64 = 0
+	var basement_enter_pos int64 = 1
 
 	input = strings.Replace(input, "\n", "", 1)
 
@@ -36,11 +36,16 @@ func day01_p2(input string) (int64, error) {
 		} else if char == ')' {
 			score--
 		} else {
-			return score, errors.New(fmt.Sprintf("Bad character input %q in column %d.", char, idx))
+			return -1, errors.New(fmt.Sprintf("Bad character input %q in column %d.", char, idx))
+		}
+
+		if score == -1 {
+			basement_enter_pos = int64(idx) + 1
+			break
 		}
 	}
 
-	return score, nil
+	return basement_enter_pos, nil
 }
 
 func Solution_Day01(part int, input string) (int64, error) {
