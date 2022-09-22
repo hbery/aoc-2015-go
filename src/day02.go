@@ -18,6 +18,17 @@ func min_array(arr []int64) int64 {
 	return min_element
 }
 
+func max_array(arr []int64) int64 {
+	var max_element int64 = arr[0]
+	for _, element := range arr {
+		if element > max_element {
+			max_element = element
+		}
+	}
+
+	return max_element
+}
+
 func day02_p1(input string) (int64, error) {
 	var surface int64 = 0
 
@@ -48,7 +59,29 @@ func day02_p1(input string) (int64, error) {
 }
 
 func day02_p2(input string) (int64, error) {
-	return -1, nil
+	var ribbon int64 = 0
+
+	for idx, line := range strings.Split(strings.TrimSuffix(input, "\n"), "\n") {
+		var dimensions []string = strings.Split(line, "x")
+		var length, width, height int64
+		var err error
+
+		if length, err = strconv.ParseInt(dimensions[0], 10, 64); err != nil {
+			return -1, errors.New(fmt.Sprintf("Error: parsing length string value to int64 failed at %d. line: %s", idx, line))
+		}
+
+		if width, err = strconv.ParseInt(dimensions[1], 10, 64); err != nil {
+			return -1, errors.New(fmt.Sprintf("Error: parsing width string value to int64 failed at %d. line: %s", idx, line))
+		}
+
+		if height, err = strconv.ParseInt(dimensions[2], 10, 64); err != nil {
+			return -1, errors.New(fmt.Sprintf("Error: parsing height string value to int64 failed at %d. line: %s", idx, line))
+		}
+
+		ribbon += 2*length + 2*width + 2*height + length*width*height - 2*max_array([]int64{length, width, height})
+	}
+
+	return ribbon, nil
 }
 
 func Solution_Day02(part int, input string) (int64, error) {
