@@ -32,12 +32,12 @@ func main() {
 
 	var input string
 	if arguments.file != "" {
-		fileContents, err := ioutil.ReadFile(arguments.file)
-		if err != nil {
+		if file_contents, err := ioutil.ReadFile(arguments.file); err != nil {
 			fmt.Println(err)
 			os.Exit(1)
+		} else {
+			input = string(file_contents)
 		}
-		input = string(fileContents)
 	} else {
 		if len(flag.Args()) < 1 {
 			fmt.Println("Error: Specify testcase string or file name using -file option.")
@@ -49,8 +49,7 @@ func main() {
 	}
 
 	// Run Solution for certain day
-	err := hbery_aoc2015.Solution(arguments.day, arguments.part, input)
-	if err != nil {
+	if err := hbery_aoc2015.Solution(arguments.day, arguments.part, input); err != nil {
 		fmt.Println(err)
 	}
 }

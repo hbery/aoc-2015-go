@@ -17,7 +17,7 @@ func day01_p1(input string) (int64, error) {
 		} else if char == ')' {
 			score--
 		} else {
-			return score, errors.New(fmt.Sprintf("Bad character input %q in column %d.", char, idx))
+			return score, errors.New(fmt.Sprintf("Error: Bad character input %q in column %d.", char, idx))
 		}
 	}
 
@@ -36,7 +36,7 @@ func day01_p2(input string) (int64, error) {
 		} else if char == ')' {
 			score--
 		} else {
-			return -1, errors.New(fmt.Sprintf("Bad character input %q in column %d.", char, idx))
+			return -1, errors.New(fmt.Sprintf("Error: Bad character input %q in column %d.", char, idx))
 		}
 
 		if score == -1 {
@@ -54,6 +54,6 @@ func Solution_Day01(part int, input string) (int64, error) {
 	} else if part == 2 {
 		return day01_p2(input)
 	} else {
-		return 0, errors.New(fmt.Sprintf("Hold on cowboy. No such part (%d) of this day task", part))
+		return 0, errors.New(fmt.Sprintf("Error: Hold on cowboy. No such part (%d) of this day task", part))
 	}
 }
