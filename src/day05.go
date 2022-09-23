@@ -40,6 +40,26 @@ func str_contains_one_of(s string, phrases []string) bool {
 	return false
 }
 
+func str_contains_pair_of_2letters(s []rune) bool {
+	for i := 0; i < len(s)-2; i++ {
+		if strings.Count(string(s), string(s[i:i+2])) >= 2 {
+			return true
+		}
+	}
+
+	return false
+}
+
+func str_contains_same_char_letter_apart(s []rune) bool {
+	for i := 0; i < len(s)-3; i++ {
+		if s[i] == s[i+2] && s[i] != s[i+1] {
+			return true
+		}
+	}
+
+	return false
+}
+
 func day05_p1(input string) (int64, error) {
 	var nice_strings_num int64 = 0
 
@@ -61,7 +81,6 @@ func day05_p1(input string) (int64, error) {
 			continue
 		}
 
-		// fmt.Printf("String: \"%s\" passed\n", str)
 		nice_strings_num++
 	}
 
@@ -69,7 +88,25 @@ func day05_p1(input string) (int64, error) {
 }
 
 func day05_p2(input string) (int64, error) {
-	return -1, nil
+	var nice_strings_num int64 = 0
+
+	input = strings.TrimSuffix(input, "\n")
+
+	for _, str := range strings.Split(input, "\n") {
+		// Check for pair presented at least twice non-overlapping
+		if !str_contains_pair_of_2letters([]rune(str)) {
+			continue
+		}
+
+		// Check for repeated letter split by 1 letter apart
+		if !str_contains_same_char_letter_apart([]rune(str)) {
+			continue
+		}
+
+		nice_strings_num++
+	}
+
+	return nice_strings_num, nil
 }
 
 func Solution_Day05(part int, input string) (int64, error) {
