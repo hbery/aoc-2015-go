@@ -29,7 +29,23 @@ func day04_p1(input string) (int64, error) {
 }
 
 func day04_p2(input string) (int64, error) {
-	return -1, nil
+	var number int64 = 1
+
+	input = strings.TrimSuffix(input, "\n")
+
+	for {
+		digest := md5.New()
+		io.WriteString(digest, fmt.Sprintf("%s%d", input, number))
+		hash := digest.Sum(nil)
+
+		if hash[0] == 0 && hash[1] == 0 && hash[2] == 0 {
+			break
+		}
+
+		number++
+	}
+
+	return number, nil
 }
 
 func Solution_Day04(part int, input string) (int64, error) {
