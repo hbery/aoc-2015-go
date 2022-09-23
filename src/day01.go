@@ -9,7 +9,7 @@ import (
 func day01_p1(input string) (int64, error) {
 	var score int64 = 0
 
-	input = strings.Replace(input, "\n", "", 1)
+	input = strings.TrimSuffix(input, "\n")
 
 	for idx, char := range input {
 		if char == '(' {
@@ -28,7 +28,7 @@ func day01_p2(input string) (int64, error) {
 	var score int64 = 0
 	var basement_enter_pos int64 = 1
 
-	input = strings.Replace(input, "\n", "", 1)
+	input = strings.TrimSuffix(input, "\n")
 
 	for idx, char := range input {
 		if char == '(' {
