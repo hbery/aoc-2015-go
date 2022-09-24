@@ -6,13 +6,9 @@ import (
 	"strings"
 )
 
-type Pos struct {
-	x, y int64
-}
-
 func day03_p1(input string) (int64, error) {
-	var visited_houses = make(map[Pos]int64)
-	var pos_now = Pos{0, 0}
+	var visited_houses = make(map[Pos64]int64)
+	var pos_now = Pos64{0, 0}
 
 	visited_houses[pos_now] = 1
 
@@ -43,16 +39,16 @@ func day03_p1(input string) (int64, error) {
 }
 
 func day03_p2(input string) (int64, error) {
-	var visited_houses = make(map[Pos]int64)
-	var pos1_now = Pos{0, 0}
-	var pos2_now = Pos{0, 0}
+	var visited_houses = make(map[Pos64]int64)
+	var pos1_now = Pos64{0, 0}
+	var pos2_now = Pos64{0, 0}
 
 	visited_houses[pos1_now] = 2
 
 	input = strings.TrimSuffix(input, "\n")
 
 	for idx, char := range input {
-		var pos_now *Pos
+		var pos_now *Pos64
 		if idx%2 == 0 {
 			pos_now = &pos1_now
 		} else {
