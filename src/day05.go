@@ -4,6 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+
+	"github.com/dlclark/regexp2"
 )
 
 func str_contains_3chars_of(s string, chars string) bool {
@@ -51,13 +53,38 @@ func str_contains_pair_of_2letters(s []rune) bool {
 }
 
 func str_contains_same_char_letter_apart(s []rune) bool {
-	for i := 0; i < len(s)-3; i++ {
-		if s[i] == s[i+2] && s[i] != s[i+1] {
+	for i := 0; i < len(s)-2; i++ {
+		if s[i] == s[i+2] {
 			return true
 		}
 	}
 
 	return false
+}
+
+func re_contains_3chars_of(s string, chars string) bool {
+	isMatch, _ := regexp2.MustCompile(fmt.Sprintf("[%s].*[%s].*[%s]", chars, chars, chars), 0).MatchString(s)
+	return isMatch
+}
+
+func re_contains_any_letter_twice_in_row(s string) bool {
+	isMatch, _ := regexp2.MustCompile(`([a-z])\1`, 0).MatchString(s)
+	return isMatch
+}
+
+func re_contains_one_of(s string, phrases []string) bool {
+	isMatch, _ := regexp2.MustCompile(fmt.Sprintf("%s", strings.Join(phrases, "|")), 0).MatchString(s)
+	return isMatch
+}
+
+func re_contains_pair_of_2letters(s string) bool {
+	isMatch, _ := regexp2.MustCompile(`([a-z][a-z]).*\1`, 0).MatchString(s)
+	return isMatch
+}
+
+func re_contains_same_char_letter_apart(s string) bool {
+	isMatch, _ := regexp2.MustCompile(`([a-z])[a-z]\1`, 0).MatchString(s)
+	return isMatch
 }
 
 func day05_p1(input string) (int64, error) {
@@ -68,16 +95,19 @@ func day05_p1(input string) (int64, error) {
 	for _, str := range strings.Split(input, "\n") {
 		// Check if contains at least 3 vowels
 		if !str_contains_3chars_of(str, "aeiou") {
+			// if !re_contains_3chars_of(str, "aeiou") {
 			continue
 		}
 
 		// Check if contains any letter that appears twice in a row
 		if !str_contains_any_letter_twice_in_row([]rune(str)) {
+			// if !re_contains_any_letter_twice_in_row(str) {
 			continue
 		}
 
 		// Check for forbidden strings
 		if str_contains_one_of(str, []string{"ab", "cd", "pq", "xy"}) {
+			// if re_contains_one_of(str, []string{"ab", "cd", "pq", "xy"}) {
 			continue
 		}
 
@@ -95,11 +125,13 @@ func day05_p2(input string) (int64, error) {
 	for _, str := range strings.Split(input, "\n") {
 		// Check for pair presented at least twice non-overlapping
 		if !str_contains_pair_of_2letters([]rune(str)) {
+			// if !re_contains_pair_of_2letters(str) {
 			continue
 		}
 
 		// Check for repeated letter split by 1 letter apart
 		if !str_contains_same_char_letter_apart([]rune(str)) {
+			// if !re_contains_same_char_letter_apart(str) {
 			continue
 		}
 
