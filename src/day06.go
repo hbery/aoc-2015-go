@@ -40,6 +40,20 @@ func turn_on_grid(grid *[][]int, line string) {
 	}
 }
 
+func turn_on_grid_b(grid *[][]int, line string) {
+	s := strings.Split(line, " ")
+	start := strings.Split(s[2], ",")
+	end := strings.Split(s[4], ",")
+
+	for i := 0; i < len(*grid); i++ {
+		for j := 0; j < len(*grid); j++ {
+			if i >= toI(start[0]) && j >= toI(start[1]) && i <= toI(end[0]) && j <= toI(end[1]) {
+				(*grid)[i][j] += 1
+			}
+		}
+	}
+}
+
 func turn_off_grid(grid *[][]int, line string) {
 	s := strings.Split(line, " ")
 	start := strings.Split(s[2], ",")
@@ -49,6 +63,22 @@ func turn_off_grid(grid *[][]int, line string) {
 		for j := 0; j < len(*grid); j++ {
 			if i >= toI(start[0]) && j >= toI(start[1]) && i <= toI(end[0]) && j <= toI(end[1]) {
 				(*grid)[i][j] = 0
+			}
+		}
+	}
+}
+
+func turn_off_grid_b(grid *[][]int, line string) {
+	s := strings.Split(line, " ")
+	start := strings.Split(s[2], ",")
+	end := strings.Split(s[4], ",")
+
+	for i := 0; i < len(*grid); i++ {
+		for j := 0; j < len(*grid); j++ {
+			if i >= toI(start[0]) && j >= toI(start[1]) && i <= toI(end[0]) && j <= toI(end[1]) {
+				if (*grid)[i][j] != 0 {
+					(*grid)[i][j] -= 1
+				}
 			}
 		}
 	}
@@ -68,6 +98,20 @@ func toggle_grid(grid *[][]int, line string) {
 	}
 }
 
+func toggle_grid_b(grid *[][]int, line string) {
+	s := strings.Split(line, " ")
+	start := strings.Split(s[1], ",")
+	end := strings.Split(s[3], ",")
+
+	for i := 0; i < len(*grid); i++ {
+		for j := 0; j < len(*grid); j++ {
+			if i >= toI(start[0]) && j >= toI(start[1]) && i <= toI(end[0]) && j <= toI(end[1]) {
+				(*grid)[i][j] += 2
+			}
+		}
+	}
+}
+
 func count_ones(grid *[][]int) int64 {
 	var ones int64 = 0
 
@@ -80,6 +124,18 @@ func count_ones(grid *[][]int) int64 {
 	}
 
 	return ones
+}
+
+func count_brightness(grid *[][]int) int64 {
+	var light int64 = 0
+
+	for i := 0; i < len(*grid); i++ {
+		for j := 0; j < len(*grid); j++ {
+			light += int64((*grid)[i][j])
+		}
+	}
+
+	return light
 }
 
 func day06_p1(input string) (int64, error) {
@@ -117,7 +173,37 @@ func day06_p1(input string) (int64, error) {
 }
 
 func day06_p2(input string) (int64, error) {
-	return -1, nil
+	// Init grid of lights
+	var grid [][]int = make([][]int, 1000)
+	for row := 0; row < 1000; row++ {
+		grid[row] = make([]int, 1000)
+	}
+	init_grid(&grid, 1000, 1000)
+
+	// turn on start_x,start_y through end_x,end_y
+	re_1 := regexp.MustCompile(`turn on`)
+	// turn off start_x,start_y through end_x,end_y
+	re_0 := regexp.MustCompile(`turn of`)
+	// toggle start_x,start_y through end_x,end_y
+	re_t := regexp.MustCompile(`toggle`)
+
+	input = strings.TrimSuffix(input, "\n")
+
+	for _, line := range strings.Split(input, "\n") {
+		if re_1.MatchString(line) {
+			turn_on_grid_b(&grid, line)
+		}
+
+		if re_0.MatchString(line) {
+			turn_off_grid_b(&grid, line)
+		}
+
+		if re_t.MatchString(line) {
+			toggle_grid_b(&grid, line)
+		}
+	}
+
+	return count_brightness(&grid), nil
 }
 
 func Solution_Day06(part int, input string) (int64, error) {
