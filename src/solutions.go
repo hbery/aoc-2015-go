@@ -10,12 +10,15 @@ import (
 type SolutionDay func(int, string) (int64, error)
 
 var SolutionsMap = map[int]SolutionDay{
-	1: Solution_Day01,
-	2: Solution_Day02,
-	3: Solution_Day03,
-	4: Solution_Day04,
-	5: Solution_Day05,
-	6: Solution_Day06,
+	1:  Solution_Day01,
+	2:  Solution_Day02,
+	3:  Solution_Day03,
+	4:  Solution_Day04,
+	5:  Solution_Day05,
+	35: Solution_Day05_regex,
+	6:  Solution_Day06,
+	36: Solution_Day06_regex,
+	7:  Solution_Day07,
 }
 
 func Solution(day, part int, input string) error {
