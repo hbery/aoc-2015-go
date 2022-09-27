@@ -128,7 +128,7 @@ func parse_input(c *Circuit, input string) error {
 				wire.in = nil
 			}
 
-			fmt.Printf("%s :: %+v\n", match[2], wire)
+			// fmt.Printf("%s :: %+v\n", match[2], wire)
 			c.scheme[match[2]] = wire
 			continue
 		}
@@ -138,7 +138,7 @@ func parse_input(c *Circuit, input string) error {
 			wire.op = match[1]
 			wire.in = append(wire.in, match[2])
 
-			fmt.Printf("%s :: %+v\n", match[3], wire)
+			// fmt.Printf("%s :: %+v\n", match[3], wire)
 			c.scheme[match[3]] = wire
 			continue
 		}
@@ -148,7 +148,7 @@ func parse_input(c *Circuit, input string) error {
 			wire.op = match[2]
 			wire.in = append(wire.in, match[1], match[3])
 
-			fmt.Printf("%s :: %+v\n", match[4], wire)
+			// fmt.Printf("%s :: %+v\n", match[4], wire)
 			c.scheme[match[4]] = wire
 			continue
 		}
@@ -163,7 +163,7 @@ func parse_input(c *Circuit, input string) error {
 				wire.arg = uint16(val)
 			}
 
-			fmt.Printf("%s :: %+v\n", match[4], wire)
+			// fmt.Printf("%s :: %+v\n", match[4], wire)
 			c.scheme[match[4]] = wire
 			continue
 		}
@@ -183,9 +183,9 @@ func day07_p1(input string) (int64, error) {
 
 	this_circuit.resolveCircuit()
 
-	for k, v := range this_circuit.scheme {
-		fmt.Println(k, " => ", v.signal)
-	}
+	// for k, v := range this_circuit.scheme {
+	// 	fmt.Println(k, " => ", v.signal)
+	// }
 
 	if val, exists := this_circuit.scheme["a"]; !exists {
 		return -1, errors.New("Error: There is no key `a` in the sources map.")
@@ -196,7 +196,30 @@ func day07_p1(input string) (int64, error) {
 }
 
 func day07_p2(input string) (int64, error) {
-	return -1, nil
+	this_circuit := make_circuit()
+
+	input = strings.TrimSuffix(input, "\n")
+
+	if err := parse_input(this_circuit, input); err != nil {
+		return -1, err
+	}
+
+	if val, err := day07_p1(input); err != nil {
+		return -1, nil
+	} else {
+		this_circuit.scheme["b"].signal = uint16(val)
+	}
+	this_circuit.resolveCircuit()
+
+	// for k, v := range this_circuit.scheme {
+	// 	fmt.Println(k, " => ", v.signal)
+	// }
+
+	if val, exists := this_circuit.scheme["a"]; !exists {
+		return -1, errors.New("Error: There is no key `a` in the sources map.")
+	} else {
+		return int64(val.signal), nil
+	}
 }
 
 func Solution_Day07(part int, input string) (int64, error) {
