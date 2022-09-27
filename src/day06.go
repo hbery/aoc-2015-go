@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func toI(s string) int {
+func d06_toI(s string) int {
 	val, err := strconv.ParseInt(s, 10, 64)
 	if err != nil {
 		fmt.Println(err)
@@ -33,7 +33,7 @@ func turn_on_grid(grid *[][]int, line string) {
 
 	for i := 0; i < len(*grid); i++ {
 		for j := 0; j < len(*grid); j++ {
-			if i >= toI(start[0]) && j >= toI(start[1]) && i <= toI(end[0]) && j <= toI(end[1]) {
+			if i >= d06_toI(start[0]) && j >= d06_toI(start[1]) && i <= d06_toI(end[0]) && j <= d06_toI(end[1]) {
 				(*grid)[i][j] = 1
 			}
 		}
@@ -47,7 +47,7 @@ func turn_on_grid_b(grid *[][]int, line string) {
 
 	for i := 0; i < len(*grid); i++ {
 		for j := 0; j < len(*grid); j++ {
-			if i >= toI(start[0]) && j >= toI(start[1]) && i <= toI(end[0]) && j <= toI(end[1]) {
+			if i >= d06_toI(start[0]) && j >= d06_toI(start[1]) && i <= d06_toI(end[0]) && j <= d06_toI(end[1]) {
 				(*grid)[i][j] += 1
 			}
 		}
@@ -61,7 +61,7 @@ func turn_off_grid(grid *[][]int, line string) {
 
 	for i := 0; i < len(*grid); i++ {
 		for j := 0; j < len(*grid); j++ {
-			if i >= toI(start[0]) && j >= toI(start[1]) && i <= toI(end[0]) && j <= toI(end[1]) {
+			if i >= d06_toI(start[0]) && j >= d06_toI(start[1]) && i <= d06_toI(end[0]) && j <= d06_toI(end[1]) {
 				(*grid)[i][j] = 0
 			}
 		}
@@ -75,7 +75,7 @@ func turn_off_grid_b(grid *[][]int, line string) {
 
 	for i := 0; i < len(*grid); i++ {
 		for j := 0; j < len(*grid); j++ {
-			if i >= toI(start[0]) && j >= toI(start[1]) && i <= toI(end[0]) && j <= toI(end[1]) {
+			if i >= d06_toI(start[0]) && j >= d06_toI(start[1]) && i <= d06_toI(end[0]) && j <= d06_toI(end[1]) {
 				if (*grid)[i][j] != 0 {
 					(*grid)[i][j] -= 1
 				}
@@ -91,7 +91,7 @@ func toggle_grid(grid *[][]int, line string) {
 
 	for i := 0; i < len(*grid); i++ {
 		for j := 0; j < len(*grid); j++ {
-			if i >= toI(start[0]) && j >= toI(start[1]) && i <= toI(end[0]) && j <= toI(end[1]) {
+			if i >= d06_toI(start[0]) && j >= d06_toI(start[1]) && i <= d06_toI(end[0]) && j <= d06_toI(end[1]) {
 				(*grid)[i][j] = ((*grid)[i][j] + 1) % 2
 			}
 		}
@@ -105,7 +105,7 @@ func toggle_grid_b(grid *[][]int, line string) {
 
 	for i := 0; i < len(*grid); i++ {
 		for j := 0; j < len(*grid); j++ {
-			if i >= toI(start[0]) && j >= toI(start[1]) && i <= toI(end[0]) && j <= toI(end[1]) {
+			if i >= d06_toI(start[0]) && j >= d06_toI(start[1]) && i <= d06_toI(end[0]) && j <= d06_toI(end[1]) {
 				(*grid)[i][j] += 2
 			}
 		}
