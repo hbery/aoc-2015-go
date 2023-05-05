@@ -5,5 +5,5 @@
 ## Running tasks
 
 ```bash
-go run ./main.go -day DAY_NO
+go run . -day DAY_NO -file INPUT_FILE -part PART
 ```
