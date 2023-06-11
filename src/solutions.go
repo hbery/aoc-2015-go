@@ -32,6 +32,7 @@ var SolutionsMap = map[int]SolutionDay{
 	18:  Solution_Day18,
 	19:  Solution_Day19,
 	20:  Solution_Day20,
+	21:  Solution_Day21,
 }
 
 func Solution(day, part int, input string) error {
